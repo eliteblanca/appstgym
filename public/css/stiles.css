@@ -122,10 +122,6 @@ td:hover{
 	filter: opacity(60%);
 }
 
-.icono_mediano:hover{
-	cursor: pointer;
-}
-
 .icono__mediano--centrado{
 	z-index: 1000;
 	width: 30px;
