@@ -277,7 +277,7 @@ function changeCliente (req,res) {
 		});
 	}else{
 		console.log('se quiere actualizar Cliente');
-		cliente.findOne({'_id:':req.params.idCliente}).exec(function (err,clienteEncontrado) {
+		cliente.findOne({'_id':req.params.idCliente}).exec(function (err,clienteEncontrado) {
 					console.log('se ha encontrado el cliente' + clienteEncontrado);
 					clienteEncontrado.nombre = req.body.nombe || clienteEncontrado.nombre;
 					clienteEncontrado.sexo = req.body.sexo || clienteEncontrado.sexo;
@@ -290,6 +290,7 @@ function changeCliente (req,res) {
 					clienteEncontrado.save(function (err,clienteGuardado) {
 						if(err){
 							console.log(err);
+							res.sendStatus(500);
 						}else{
 							console.log('guardado cliente con exito ' + clienteGuardado);
 							res.send(clienteGuardado);
