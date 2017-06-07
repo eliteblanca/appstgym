@@ -1,0 +1,93 @@
+<div class="brdrc--grey br5 brdr1 bxsh1 bgc--white ma1">
+	<div class="brdr1--bottom brdrc--grey pa1">
+		<a ui-sref='dashBoard.clientes'><img class="icono__mediano" src="/img/arrow-left.svg"></a>
+		<h5 class="dib">Nuevo Cliente</h5>
+	</div>
+	<div class="pa1">		
+		<form>
+		<div class="row">
+		<div class="col-sm-6">
+			
+		
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Nombre</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model='cliente.nombre'>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Identificacion</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model='cliente.identificacion'>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">sexo</label>
+				<div class="col-sm-8">
+					<select class="form-control" ng-model='cliente.sexo'>
+						<option>Masculino</option>
+						<option>femenino</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">edad</label>
+				<div class="col-sm-8">
+					<input type="number" class="form-control" ng-model='cliente.edad'>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Plan</label>
+				<div class="col-sm-8">
+					<select class="form-control" ng-model='cliente.plan'>
+						<option value="{{plan._id}}" ng-repeat='plan in planes'>{{plan.nombre}}</option>						
+					</select>
+				</div>
+			</div>	
+	
+			
+			
+		</div>
+		<div class="col-sm-6">
+		
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Telefono</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model='cliente.telefono' placeholder="telefono">
+				</div>
+			</div>	
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Direccion</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model='cliente.direccion' placeholder="Direccion">
+				</div>
+			</div>
+		
+
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Peso inicial</label>
+				<div class="col-sm-7">
+					<input type="number" class="form-control" ng-model='cliente.pesoInicial'>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">Peso ideal</label>
+				<div class="col-sm-7">
+					<input type="number" class="form-control" ng-model='cliente.pesoIdeal'>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="offset-sm-4 col-sm-5">
+					<button type="submit" class="btn btn-primary bg-success text-white boton__opciones" ng-click="agregarNuevo(cliente)"><img src="/img/plus.svg" class="icono">Agregar</button>
+				</div>
+			</div>
+
+		</div>
+		</form>
+
+	</div>
+</div>

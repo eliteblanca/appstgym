@@ -1,0 +1,30 @@
+{
+  "name": "appgym",
+  "version": "1.0.0",
+  "description": "appgym",
+  "repository": "ninguno",
+  "main": "index.js",
+  "bin": {
+    "appgym": "comands.js"
+  },
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-ui-router": "^0.4.2",
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "moment": "^2.18.1",
+    "mongoose": "^4.9.3",
+    "morgan": "^1.8.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines":{
+    "node": "6.10.2"
+  }
+}

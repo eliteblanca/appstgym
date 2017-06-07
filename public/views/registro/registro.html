@@ -1,0 +1,40 @@
+<div class="w(400) mt(200) mx-auto brdr1 brdrc--grey br5 bgc--white bxsh1 pa1">
+	<form>
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label" for="usuario">Usuario</label>
+			<div class="col-sm-9">
+				<input type="text" id="usuario" class="form-control" placeholder="Usuario" ng-model='usuario.idUsuario'>
+			</div>
+		</div>
+
+<div class="form-group row">
+			<label class="col-sm-3 col-form-label" for="contrasena">Contrasena</label>
+			<div class="col-sm-9">
+				<input type="password" id="contrasena" class="form-control" ng-model='usuario.contrasena'>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label" for="gimnacio">Gimnacio</label>
+			<div class="col-sm-9">
+				<input type="text" id="gimnacio" class="form-control" placeholder="Gimnacio" ng-model='usuario.gimnacio'>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="col-sm-3 col-form-label">Imagen de perfil</label>
+			<div class="col-sm-9">
+				<img src="/img/user-1.png" class="w(100) h(100) mb1 img-thumbnail dib">
+				<input type="file" class="form-control-file mx-auto dib">
+			</div>
+		</div>
+
+		<div class="form-group row">
+		<div class="col-sm-12">
+			<button type="button" class="fr btn btn-secondary bg-success text-white boton__opciones" ng-click="agregarUsuario(usuario)"><img src="/img/checked.png" class="icono mr1">Registrarse</button>
+		</div>
+			
+		</div>
+
+	</form>	
+</div>

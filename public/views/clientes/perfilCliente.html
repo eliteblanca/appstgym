@@ -1,0 +1,135 @@
+<div class="brdr1 brdrc--grey br5 bgc--white bxsh1 mb1" ui-view>
+	<div class="brdr1--bottom brdrc--grey pa1">
+		<a ui-sref="dashBoard.clientes"><img class="icono__mediano" src="/img/arrow-left.svg"></a>
+		<h5 class="dib">{{cliente.nombre}}</h5>
+		<a ui-sref="dashBoard.clientes.perfil.editar"><img class="icono__mediano fr" src="/img/pencil.svg"></a>
+	</div>
+	<div class="pa1">
+		<form>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Nombre</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.nombre' readonly>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Identificacion</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.identificacion' readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">sexo</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.sexo' readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">edad</label>
+						<div class="col-sm-8">
+							<input type="number" class="form-control" ng-model='cliente.edad' readonly>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Fecha registro</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.fechaRegistro' readonly>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Ultimo ingreso</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.ultimoIngreso' readonly>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Telefono</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.telefono' placeholder="telefono" readonly>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Direccion</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.direccion' placeholder="Direccion" readonly>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">Peso inicial</label>
+						<div class="col-sm-7">
+							<input type="number" class="form-control" ng-model='cliente.pesoInicial' readonly>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">Peso ideal</label>
+						<div class="col-sm-7">
+							<input type="number" class="form-control" ng-model='cliente.pesoIdeal' readonly>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div subscripciones></div>
+
+
+<div class="brdr1 brdrc--grey br5 bgc--white bxsh1 mb1">
+	<div class="brdr1--bottom brdrc--grey pa1">
+		<h5 class="dib">Rutinas</h5>
+	</div>
+	<div class="w-100 flex aic">
+		<div class="w(50) ma1">		
+			<img src="/img/close.svg" class="icono--centrado mx-auto">
+			<div class="pa1 mt1 mb1 brdr1 brdrc--grey br5 w(50) mx-auto">
+				<img class="icono__mediano" src="/img/list-2.png">				
+			</div>		
+			<div class="w(50) mx-auto">
+				<h6>rutina 1</h6>	
+			</div>	
+			
+		</div>
+
+		<div class="w(50) ma1">		
+			<img src="/img/close.svg" class="icono--centrado mx-auto">
+			<div class="pa1 mt1 mb1 brdr1 brdrc--grey br5 w(50) mx-auto">
+				<img class="icono__mediano" src="/img/list-2.png">				
+			</div>		
+			<div class="w(50) mx-auto">
+				<h6>rutina 2</h6>	
+			</div>	
+			
+		</div>
+
+		<div class="w(50) ma1">		
+			<img src="/img/close.svg" class="icono--centrado mx-auto">
+			<div class="pa1 mt1 mb1 brdr1 brdrc--grey br5 w(50) mx-auto">
+				<img class="icono__mediano" src="/img/list-2.png">				
+			</div>		
+			<div class="w(50) mx-auto">
+				<h6>rutina 3</h6>	
+			</div>	
+			
+		</div>
+
+		<div class="w(50) mt1 mb1">
+			<img src="/img/plus.svg" class="icono__mediano--centrado mx-auto">
+		</div>
+
+	</div>
+</div>

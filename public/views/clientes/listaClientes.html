@@ -1,0 +1,71 @@
+<div ui-view>
+  <div class="row pt1 pb1">
+    <div class="col-sm-6">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-label="Buscar por" placeholder="{{busquedaPlaceHold}}" ng-model="campo">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-secondary" ng-click="buscar(campo)">{{txtBusqueda}}</button>
+          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Buscar por</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#" ng-click="busquedaNombre()">Nombre</a>
+            <a class="dropdown-item" href="#" ng-click="busquedaCedula()">Cedula</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="btn-group">
+      <button type="button" class="btn btn-secondary" ng-click="listarClientes()">Todos</button>
+      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" ng-click="buscarPorEstado('activo')">activos</a>
+          <a class="dropdown-item" href="#" ng-click="buscarPorEstado('inactivo')">inactivos</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <a ui-sref='dashBoard.clientes.nuevo'><button type="button" class="btn btn-secondary bg-success text-white boton__opciones"><img src="/img/plus.svg" class="icono">  Nuevo cliente</button></a>
+    </div>
+  </div>
+  
+  <div class="h-75 brdrc--grey brdr1 br5 bxsh1 bgc--white" > <!-- contenedor contenido -->
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Identificacion</th>
+          <th>Ultimo ingreso</th>   
+          <th>Estado</th>
+          <th></th>       
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="cliente in clientes" ng-class="calcularColor(cliente)">
+          <td>{{cliente.nombre}}</td>
+          <td>{{cliente.identificacion}}</td>
+          <td>{{cliente.ultimoIngreso}}</td>
+          <td>{{cliente.estado}}</td>
+          <td>
+            <img src="/img/check.svg" class="icono__mediano" ng-click="actualizarUltimoIngreso(cliente._id,$index)">  
+            <img src="/img/user.svg" class="icono__mediano" ng-click="verPerfil(cliente,$index)">
+            <img src="/img/close.svg" class="icono__mediano" ng-click='
+            eliminarCliente(cliente,$index)'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+
+  <div class="w-100 mt1 pl1 pr1 clearfix ">
+    <img src="/img/arrow-left.svg" class=" fl icono__mediano">
+    <img src="/img/arrow-right.svg" class=" fr icono__mediano">
+  </div>
+</div>

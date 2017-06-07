@@ -1,0 +1,40 @@
+<div>
+	
+
+<div class="brdr1 br5 brdrc--grey bxsh1 bgc--white mb1 clearfix" ng-repeat="sub in cliente.subscripcion">
+	<div class="pa1 fl">
+		<div class="">
+			Dias para finalizar:	
+		</div>
+		<div class="">
+			<h1 class="ft14 tac">{{numeroInfoDias(sub.plan,sub.fechaInicio)}}</h1>	
+		</div>				
+	</div>
+
+	<div class="pa1 brdr1--left brdrc--grey fl">
+		<p>Plan: {{nombrePlan(sub.plan)}}</p>
+		<p>Estado:{{sub.estado}}</p>
+		<p>Inicio: {{sub.fechaInicio}}</p>
+		<p>Finaliza:{{sub.fechaFinal}}</p>
+		<p>Ultimo ingreso: {{cliente.ultimoIngreso}}</p>
+	</div>
+	<img src="/img/close.svg" class="icono mr1 mt1 fr" ng-click="eliminarSubs(sub._id,$index)">
+	<img src = '/img/control-pause.svg' class = 'icono mr1 mt1 fr' ng-click="suspenderSubs(sub._id,$index)"> 
+	<img src="/img/control-play.svg" class="icono mr1 mt1 fr" ng-click="activarSubs(sub._id,$index)">
+
+</div>
+
+<div class="row">
+	<div class="col-sm-2" ng-hide="agregarClienteFlg">
+		<button type="button" class="btn btn-secondary bg-success text-white boton__opciones mb1" ng-click="subscribir(planNuevo)"><img src="/img/check.svg" class="icono">Subscribir</button>
+	</div>
+	<div class="col-sm-3" ng-show="agregarClienteFlg">
+		<button type="button" class="btn btn-secondary bg-success text-white boton__opciones mb1" ng-click="mostrarOpciones()"><img src="/img/plus.svg" class="icono">  Nueva subscripcion</button>
+	</div>
+	<div class="col-sm-2" ng-hide="agregarClienteFlg">
+		<select class="form-control" ng-model='planNuevo'>
+						<option value="{{plan._id}}" ng-repeat='plan in planes'>{{plan.nombre}}</option>	
+		</select>
+	</div>
+</div>
+</div>

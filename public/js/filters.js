@@ -1,0 +1,1 @@
+angular.module("gymApp").$filter('currency|date|filter|json|limitTo|linky|lowercase|number|orderBy|uppercase')(array, expression);

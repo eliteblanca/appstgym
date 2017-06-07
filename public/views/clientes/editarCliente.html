@@ -1,0 +1,86 @@
+
+	<div class="brdr1--bottom brdrc--grey pa1">
+		<a ui-sref="dashBoard.clientes.perfil"><img class="icono__mediano" src="/img/arrow-left.svg"></a>
+		<h5 class="dib">{{cliente.nombre}}</h5>
+		<img class="icono__mediano fr" src="/img/check.svg" ng-click="actualizarCliente()">
+	</div>
+	<div class="pa1">
+		<form>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Nombre</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.nombre' >
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Identificacion</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.identificacion'>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">sexo</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.sexo'>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">edad</label>
+						<div class="col-sm-8">
+							<input type="number" class="form-control" ng-model='cliente.edad'>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Fecha registro</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.fechaRegistro'>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Ultimo ingreso</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.ultimoIngreso'>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Telefono</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.telefono' placeholder="telefono">
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Direccion</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model='cliente.direccion' placeholder="Direccion">
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">Peso inicial</label>
+						<div class="col-sm-7">
+							<input type="number" class="form-control" ng-model='cliente.pesoInicial'>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">Peso ideal</label>
+						<div class="col-sm-7">
+							<input type="number" class="form-control" ng-model='cliente.pesoIdeal'>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>

@@ -1,0 +1,99 @@
+angular.module('gymApp',[
+	'ui.router',
+	'restangular',
+	'ngCookies'
+	]);
+
+angular.module('gymApp').config(function($stateProvider,$urlRouterProvider){
+	$stateProvider
+	.state('login',{
+		url:'/login',
+		controller:'controllerRegistro',
+		templateUrl:'/views/registro/login.html',
+	})
+	.state('registro',{
+		url:'/registro',
+		controller:'controllerRegistro',
+		templateUrl:'/views/registro/registro.html'
+	})
+	.state('dashBoard',{
+		url:'/dashBoard',
+		controller:'controllerDashBoard',
+		templateUrl:'/views/dashBoard/dashBoard.html'
+	})
+	.state('dashBoard.clientes',{
+		url:'/clientes',
+		controller:'controllerClientes',
+		templateUrl:'/views/clientes/listaClientes.html'
+	})
+	.state('dashBoard.clientes.perfil',{
+		url:'/perfil',
+		params:{idCliente:null,index:null},
+		controller:'controllerClientesPerfil',
+		templateUrl:'/views/clientes/perfilCliente.html'
+	})
+	.state('dashBoard.clientes.perfil.editar',{
+		url:'/editar',
+		params:{Cliente:null},
+		controller:'controllerClientesPerfil',
+		templateUrl:'/views/clientes/editarCliente.html'
+	})
+	.state('dashBoard.clientes.nuevo',{
+		url:'/nuevos',
+		controller:'controllerClienteNuevo',
+		templateUrl:'/views/clientes/nuevoCliente.html'
+	})
+	.state('dashBoard.subscripciones',{
+		url:'/subscripciones',
+		controller:'controllerSubs',
+		templateUrl:'/views/subscripciones/subscripciones.html'
+	})
+	.state('dashBoard.subscripciones.planes',{
+		url:'/planes',
+		controller:'controllerSubs',
+		templateUrl:'/views/subscripciones/planes.html'
+	})
+	.state('dashBoard.subscripciones.planes.nuevo',{
+		url:'/nuevo',
+		controller:'controllerPlanes',
+		templateUrl:'/views/subscripciones/nuevoPlan.html'
+	})
+	.state('dashBoard.subscripciones.tiquetera',{
+		url:'/tiquetera',
+		controller:'controllerTiqueteras',
+		templateUrl:'/views/subscripciones/tiquetera.html'
+	})
+	.state('dashBoard.subscripciones.tiquetera.nueva',{
+		url:'/nueva',
+		controller:'controllerTiqueteras',
+		templateUrl:'/views/subscripciones/nuevaTiquetera.html'
+	})
+	.state('dashBoard.rutinas',{
+		url:'/rutinas',
+		controller:'controllerRutinas',
+		templateUrl:'/views/rutinas/rutinas.html'
+	})
+	.state('dashBoard.rutinas.detalleRutina',{
+		url:'/detalle',
+		controller:'controllerRutinas',
+		templateUrl:'/views/rutinas/detalleRutina.html'
+	})
+	.state('dashBoard.clases',{
+		url:'/clases',
+		controller:'controllerClases',
+		templateUrl:'/views/clases/clases.html'
+	})
+});
+
+angular.module('gymApp').run(['$rootScope','$state','$cookies' ,function($rootScope,$state,$cookies){
+	$rootScope.$on('$stateChangeError',function(event,toState,toParams,fromState,fromParams,error){
+		if(error.unAuthorized){
+			console.log('usuario no autorizado, redireccionado a login');
+			$state.go('login');
+		}
+		if (error.authorized) {
+			console.log('usuario autorizado, redireccionado a dashBoard');
+			$state.go('dashBoard');
+		}
+	});	
+}])
