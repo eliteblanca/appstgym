@@ -118,8 +118,7 @@ service('planesService', ['Restangular','$q','$cookies', function(Restangular,$q
 	this.actualizarCliente = function (cliente) {
 		var deferred = $q.defer();
 		var clienteRest = Restangular.one('clientes',cliente._id);
-
-		clienteEncontrado.nombre = cliente.nombre;
+					clienteRest.nombre = cliente.nombre;
 					clienteRest.sexo = cliente.sexo;
 					clienteRest.edad = cliente.edad;
 					clienteRest.telefono = cliente.telefono;
