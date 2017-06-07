@@ -315,11 +315,14 @@ angular.module('gymApp')
 	}
 
 	$scope.actualizarCliente = function (){
+		console.log('controller function actualizarCliente');
 		clientesService.actualizarCliente($scope.cliente).then(
 			function (clienteRecibido) {
+			console.log('se actualizo cliente con exito');
 			$scope.cliente = clienteRecibido;
 			$state.go('dashBoard.clientes.perfil');
 		},function  (err) {
+			console.log('error al actualizar cliente');
 			console.log(err);
 		});		
 	}
