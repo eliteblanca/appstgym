@@ -183,7 +183,7 @@ angular.module('gymApp')
 	$scope.cliente = $scope.cliente || {};
 	$scope.planes = new Array();
 
-	$scope.cargarCliente = function (idCliente) {
+	$scope.cargarCliente = function (idCliente){
 		clientesService.getCliente(idCliente).then(
 			function (cliente) {
 				$scope.cliente = cliente;
@@ -192,7 +192,7 @@ angular.module('gymApp')
 			});
 	}
 
-	$scope.calcDiasRestantes = function (idPlan,fechaInicio) {
+	$scope.calcDiasRestantes = function (idPlan,fechaInicio){
 		var plan = $scope.planById(idPlan);
 		if(plan){
 			var fechaInicio = moment(fechaInicio,'DD/M/YYYY');
@@ -203,7 +203,7 @@ angular.module('gymApp')
 		}		
 	}
 
-	$scope.numeroInfoDias = function(idPlan,fechaInicio) {
+	$scope.numeroInfoDias = function(idPlan,fechaInicio){
 		var plan = $scope.planById(idPlan);		
 		var fechaInicio = moment(fechaInicio,'DD/M/YYYY');
 		var fechaFinal = fechaInicio.add(plan.duracion - 1,'days');
@@ -218,8 +218,7 @@ angular.module('gymApp')
 		}
 	}
 
-
-	$scope.calcFechaFinal = function (idPlan,fechaInicio) {
+	$scope.calcFechaFinal = function (idPlan,fechaInicio){
 		var plan = $scope.planById(idPlan);
 		if(plan){
 			var fechaInicio = moment(fechaInicio,'DD/M/YYYY');
@@ -230,7 +229,7 @@ angular.module('gymApp')
 		}		
 	}	
 
-	$scope.nombrePlan = function (idPlan) {
+	$scope.nombrePlan = function (idPlan){
 		var plan = $scope.planById(idPlan);
 		if(plan){
 			return plan.nombre;
@@ -239,7 +238,7 @@ angular.module('gymApp')
 		}		
 	}	
 
-	$scope.planById = function (id) {
+	$scope.planById = function (id){
 		for(var i = 0; i < $scope.planes.length; i ++){
 			if($scope.planes[i]._id == id){
 				return $scope.planes[i];
@@ -248,7 +247,7 @@ angular.module('gymApp')
 		return null
 	}
 
-	$scope.cargarPlanes = function () {
+	$scope.cargarPlanes = function (){
 		planesService.getPlanes().then(
 		function (planesRecibidos) {
 			$scope.planes = planesRecibidos;
@@ -258,7 +257,7 @@ angular.module('gymApp')
 		});
 	}
 
-	$scope.subscribir = function (plan) {
+	$scope.subscribir = function (plan){
 		console.log(plan);
 		clientesService.subscribir(plan,$scope.cliente._id).then(
 		function (planRecivido) {
@@ -271,7 +270,7 @@ angular.module('gymApp')
 		});
 	}
 
-	$scope.eliminarSubs = function (idSubs,index) {
+	$scope.eliminarSubs = function (idSubs,index){
 		clientesService.delSubs(idSubs,$scope.cliente._id).then(
 			function (data) {
 			$scope.cliente.subscripcion.splice(index, 1);
@@ -281,7 +280,7 @@ angular.module('gymApp')
 		})
 	}
 
-	$scope.mostrarOpciones = function () {
+	$scope.mostrarOpciones = function (){
 		$scope.agregarClienteFlg = false;
 		console.log('mostrar opciones');
 	}
@@ -306,7 +305,7 @@ angular.module('gymApp')
 			});
 	}
 
-	$scope.actualizarClienteEnLista = function () {
+	$scope.actualizarClienteEnLista = function (){
 		console.log('actualizarClienteEnLista');
 		clientesService.getCliente($scope.cliente._id).then(function(clienteNuevo) {
 			$scope.clientes[$stateParams.index] = clienteNuevo;
@@ -315,14 +314,14 @@ angular.module('gymApp')
 		});		
 	}
 
-	$scope.actualizarCliente = function () {
+	$scope.actualizarCliente = function (){
 		clientesService.actualizarCliente($scope.cliente).then(
 			function (clienteRecibido) {
 			$scope.cliente = clienteRecibido;
+			$state.go('dashBoard.clientes.perfil');
 		},function  (err) {
 			console.log(err);
-		});
-		
+		});		
 	}
 
 	$scope.cargarPlanes();
