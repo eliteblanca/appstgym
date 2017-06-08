@@ -326,7 +326,7 @@ angular.module('gymApp')
 
 	$scope.cargarCliente($stateParams.idCliente);
 }])
-.controller('controllerClientesEditar', ['$scope','$state','$stateParams','clientesService',function(){
+.controller('controllerClientesEditar', ['$scope','$state','$stateParams','clientesService',function($scope,$state,$stateParams,clientesService){
 	$scope.actualizarCliente = function (){
 		console.log('controller function actualizarCliente');
 		clientesService.actualizarCliente($stateParams.cliente).then(
