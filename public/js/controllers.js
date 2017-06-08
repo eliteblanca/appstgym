@@ -19,7 +19,6 @@ angular.module('gymApp')
 	}
 
 	$scope.login = function(usuario){
-
 		usuariosService.login(usuario).then(
 			function(data){
 				console.log('autenticado correctamente');
@@ -182,7 +181,7 @@ angular.module('gymApp')
 	$scope.agregarClienteFlg = true;
 	$scope.cliente = $scope.cliente || {};
 	$scope.planes = new Array();
-
+	$scope.clienteActualizado = $scope.clienteActualizado || false;
 	$scope.cargarCliente = function (idCliente){
 		clientesService.getCliente(idCliente).then(
 			function (cliente) {
@@ -328,6 +327,11 @@ angular.module('gymApp')
 	}
 
 	$scope.cargarPlanes();
+	if($scope.clienteActualizado){
+		$scope.cargarCliente($stateParams.idCliente);
+		$scope.clienteActualizado = false;
+	}
+
 	$scope.cargarCliente($stateParams.idCliente);
 }])
 .controller('controllerSubs', ['$scope','$state','planesService','$cookies', function($scope,$state,planesService,$cookies){
