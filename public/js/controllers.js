@@ -329,7 +329,7 @@ angular.module('gymApp')
 .controller('controllerClientesEditar', ['$scope','$state','$stateParams','clientesService',function(){
 	$scope.actualizarCliente = function (){
 		console.log('controller function actualizarCliente');
-		clientesService.actualizarCliente($scope.cliente).then(
+		clientesService.actualizarCliente($stateParams.cliente).then(
 			function (clienteRecibido) {
 			console.log('se actualizo cliente con exito');
 			$scope.$emit('clienteActualizado',clienteRecibido);
