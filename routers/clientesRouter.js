@@ -9,7 +9,6 @@ planes = mongoose.model('plan');
 function agregarCliente(req,res) {
 	console.log(req.body);
 	usuario.findOne({idUsuario:req.cookies.idUsuario}).exec(function (err,user) {
-		var planId = new mongoose.Types.ObjectId(req.body.plan);
 		var newCliente = new cliente({
 			nombre:req.body.nombre,
 			identificacion:req.body.identificacion,

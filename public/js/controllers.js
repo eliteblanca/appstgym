@@ -63,9 +63,21 @@ angular.module('gymApp')
 	$scope.estadoActivo = 'activo';
 	$scope.estadoInactivo = 'inactivo';
 	$scope.agregarNuevo = function (cliente) {		
-		clientesService.agregarCliente(cliente).then(function (clienteAgregado) {
-			$scope.clientes.push(clienteAgregado);
-			$state.go('dashBoard.clientes');
+		clientesService.agregarCliente(cliente).then(
+		function (clienteAgregado){
+			clientesService.subscribir(cliente.plan,clienteAgregado._id).then(
+				function (subscripcion) {
+					clientesService.getCliente(clienteAgregado._id).then(
+						function (clienteRecibido) {
+							$scope.clientes.push(clienteAgregado);
+							$state.go('dashBoard.clientes');
+						},function (err) {
+						console.log(err);
+					});
+				},function (err) {
+					console.log(err);
+			});
+			
 		},function (err) {
 			console.log(err);
 		});
