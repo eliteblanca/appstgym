@@ -104,6 +104,7 @@ service('planesService', ['Restangular','$q','$cookies', function(Restangular,$q
 }])
 .service('clientesService', ['Restangular','$q','$cookies', function(Restangular,$q,$cookies){
 	var clientes = Restangular.all('clientes');	
+	var clienteActual = {};
 	this.agregarCliente = function(cliente) {
 		var deferred = $q.defer();
 		clientes.post(cliente).then(

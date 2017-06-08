@@ -179,9 +179,13 @@ angular.module('gymApp')
 }])
 .controller('controllerClientesPerfil', ['$scope','$state','clientesService','$stateParams','planesService', function($scope,$state,clientesService,$stateParams,planesService){
 	$scope.agregarClienteFlg = true;
-	$scope.cliente = $scope.cliente || {};
+	$scope.cliente = {};
 	$scope.planes = new Array();
-	$scope.clienteActualizado = $scope.clienteActualizado || false;
+
+	$scope.$on('clienteActualizado',function (evt,cliente){
+		$scope.cliente = cliente;
+	});
+
 	$scope.cargarCliente = function (idCliente){
 		clientesService.getCliente(idCliente).then(
 			function (cliente) {
@@ -315,24 +319,26 @@ angular.module('gymApp')
 
 	$scope.actualizarCliente = function (){
 		console.log('controller function actualizarCliente');
+		$state.go('dashBoard.clientes.perfil.editar',{'cliente':$scope.cliente});	
+	}
+
+	$scope.cargarPlanes();
+
+	$scope.cargarCliente($stateParams.idCliente);
+}])
+.controller('controllerClientesEditar', ['$scope','$state','$stateParams','clientesService',function(){
+	$scope.actualizarCliente = function (){
+		console.log('controller function actualizarCliente');
 		clientesService.actualizarCliente($scope.cliente).then(
 			function (clienteRecibido) {
 			console.log('se actualizo cliente con exito');
-			$scope.cargarCliente($stateParams.idCliente);
+			$scope.$emit('clienteActualizado',clienteRecibido);
 			$state.go('dashBoard.clientes.perfil');
 		},function  (err) {
 			console.log('error al actualizar cliente');
 			console.log(err);
 		});		
 	}
-
-	$scope.cargarPlanes();
-	if($scope.clienteActualizado){
-		$scope.cargarCliente($stateParams.idCliente);
-		$scope.clienteActualizado = false;
-	}
-
-	$scope.cargarCliente($stateParams.idCliente);
 }])
 .controller('controllerSubs', ['$scope','$state','planesService','$cookies', function($scope,$state,planesService,$cookies){
 	$state.go('dashBoard.subscripciones.planes');

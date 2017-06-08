@@ -2,7 +2,7 @@
 	<div class="brdr1--bottom brdrc--grey pa1">
 		<a ui-sref="dashBoard.clientes"><img class="icono__mediano" src="/img/arrow-left.svg"></a>
 		<h5 class="dib">{{cliente.nombre}}</h5>
-		<a ui-sref="dashBoard.clientes.perfil.editar"><img class="icono__mediano fr" src="/img/pencil.svg"></a>
+		<img class="icono__mediano fr" src="/img/pencil.svg" ng-click="actualizarCliente()">
 	</div>
 	<div class="pa1">
 		<form>

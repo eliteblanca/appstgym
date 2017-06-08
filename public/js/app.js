@@ -34,8 +34,8 @@ angular.module('gymApp').config(function($stateProvider,$urlRouterProvider){
 	})
 	.state('dashBoard.clientes.perfil.editar',{
 		url:'/editar',
-		params:{Cliente:null},
-		controller:'controllerClientesPerfil',
+		params:{cliente:null},
+		controller:'controllerClientesEditar',
 		templateUrl:'/views/clientes/editarCliente.html'
 	})
 	.state('dashBoard.clientes.nuevo',{
