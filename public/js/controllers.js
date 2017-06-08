@@ -69,7 +69,7 @@ angular.module('gymApp')
 				function (subscripcion) {
 					clientesService.getCliente(clienteAgregado._id).then(
 						function (clienteRecibido) {
-							$scope.clientes.push(clienteAgregado);
+							$scope.clientes.push(clienteRecibido);
 							$state.go('dashBoard.clientes');
 						},function (err) {
 						console.log(err);
