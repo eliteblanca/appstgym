@@ -25,7 +25,7 @@ mongoose.connection.on("error",function(err){
 });
 
 mongoose.connection.on("connected",function(){
-	console.log("Mongoose connected to mongodb://localhost/myapp");
+	console.log('mongodb://eliteblanca:julianvar1@ds149049.mlab.com:49049/hello');
 });
 
 mongoose.connection.on("disconnected",function(err){

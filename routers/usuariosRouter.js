@@ -6,7 +6,7 @@ var usuarios = mongoose.model('usuario');
 var planes = mongoose.model('plan');
 
 function agregar(req, res){	
-	var nuevoUser = new usuarios({
+	/*var nuevoUser = new usuarios({
 		idUsuario: req.body.idUsuario,
 		contrasena: req.body.contrasena,
 		gimnacio: req.body.gimnacio,
@@ -21,30 +21,25 @@ function agregar(req, res){
 			console.log('agregado: ' + user);
 			res.send(user);
 		}
+	});*/
+
+	var nuevoUser = new usuarios({
+		idUsuario: req.body.idUsuario,
+		contrasena: req.body.contrasena,
+		gimnacio: req.body.gimnacio,
+		fechaCreacionCuenta:moment().format("DD/M/YYYY")
+	});
+
+	nuevoUser.save().then(function (user){
+		console.log('agregado: ' + user);
+		res.send(user);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
 function login(req,res){
-	/*console.log('login');
-	var query = usuarios.findOne({'idUsuario':req.body.idUsuario}).
-	select('idUsuario contrasena gimnacio');
-	query.exec(function(err,user){
-		if(err){
-			console.log(err);
-			res.sendStatus(500);
-		}else{
-			if(user.contrasena == req.body.contrasena){
-				res.cookie("idUsuario",user.idUsuario);
-				res.sendStatus(200);
-			}else{
-				console.log('contrasena incorrecta');
-				res.sendStatus(404);
-					// res.send('usuario no autenticado contrasena incorrecta');
-				}	
-			}
-		});*/
-
-
 	console.log('login');
 	var query = usuarios.findOne({'idUsuario':req.body.idUsuario}).
 	select('idUsuario contrasena gimnacio');
