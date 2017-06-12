@@ -25,7 +25,7 @@ function agregar(req, res){
 }
 
 function login(req,res){
-	console.log('login');
+	/*console.log('login');
 	var query = usuarios.findOne({'idUsuario':req.body.idUsuario}).
 	select('idUsuario contrasena gimnacio');
 	query.exec(function(err,user){
@@ -42,7 +42,26 @@ function login(req,res){
 					// res.send('usuario no autenticado contrasena incorrecta');
 				}	
 			}
-		});
+		});*/
+
+
+	console.log('login');
+	var query = usuarios.findOne({'idUsuario':req.body.idUsuario}).
+	select('idUsuario contrasena gimnacio');
+	query.exec()
+	.then(
+		function (user){
+			if(user.contrasena == req.body.contrasena){
+				res.cookie("idUsuario",user.idUsuario);
+				res.sendStatus(200);
+			}else{
+				console.log('contrasena incorrecta');
+				throw new error('contraseña incorrecta');				
+			}
+		}
+	).catch(function (err){
+		res.res.sendStatus(404);
+	});
 }
 
 function logout(req,res){
