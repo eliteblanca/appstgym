@@ -1,33 +1,29 @@
 <div class="bgc--white bxsh1 bblr5 bbrr5 btrr5 brdrc--grey">
 	<div class="brdr1--bottom brdrc--grey pa1">
-		<a ui-sref='dashBoard.subscripciones.tiquetera'><img class="icono__mediano" src="/img/left-arrow.png"></a>
+		<a ui-sref='dashBoard.subscripciones.tiqueteras'><img class="icono__mediano" src="/img/arrow-left.svg"></a>
 		<h5 class="dib">Nueva tiquetera</h5>
 	</div>
 	<div class="pa1">		
 		<form>
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Ingresos</label>
+				<label class="col-sm-2 col-form-label">Entradas</label>
 				<div class="col-sm-3">
-					<input type="numbrer" class="form-control">
+					<input type="number" class="form-control" ng-model='tiquetera.entradas'>
 				</div>
 			</div>
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Periodo</label>
-				<div class="col-sm-3">
-					<select class="form-control" id="exampleSelect1">
-						<option>Semanal</option>
-						<option>Mensual</option>
-						<option>Trimestre</option>
 
-					</select>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Duracion(dias)</label>
+				<div class="col-sm-3">
+					<input type="number" class="form-control" ng-model='tiquetera.duracion'>
 				</div>
 			</div>
-			
+					
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Precio</label>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+						<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model='tiquetera.precio'>
 						<span class="input-group-addon">$</span>
 					</div>
 				</div>
@@ -35,10 +31,9 @@
 			
 			<div class="form-group row">
 				<div class="offset-sm-2 col-sm-3">
-					<button type="submit" class="btn btn-primary bg-success text-white boton__opciones"><img src="/img/plus.png" class="icono">Agregar</button>
+					<button type="submit" class="btn btn-primary bg-success text-white boton__opciones" ng-click="agregarTiquetera(tiquetera)"><img src="/img/plus.svg" class="icono">Agregar</button>
 				</div>
 			</div>
 		</form>
 	</div>
-
 </div>

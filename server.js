@@ -5,9 +5,10 @@ var express = require('express'),
 	path = require('path'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
+	q = require('q'),
 	moment = require('moment');
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = q.Promise;
 app.set('port',(process.env.PORT || 5000));
 mongoose.connect('mongodb://eliteblanca:julianvar1@ds149049.mlab.com:49049/hello');
 

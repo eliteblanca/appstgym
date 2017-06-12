@@ -52,16 +52,16 @@ angular.module('gymApp').config(function($stateProvider,$urlRouterProvider){
 		url:'/planes',
 		controller:'controllerSubs',
 		templateUrl:'/views/subscripciones/planes.html'
-	})
+	})	
 	.state('dashBoard.subscripciones.planes.nuevo',{
 		url:'/nuevo',
 		controller:'controllerPlanes',
 		templateUrl:'/views/subscripciones/nuevoPlan.html'
 	})
-	.state('dashBoard.subscripciones.tiquetera',{
-		url:'/tiquetera',
-		controller:'controllerTiqueteras',
-		templateUrl:'/views/subscripciones/tiquetera.html'
+	.state('dashBoard.subscripciones.tiqueteras',{
+		url:'/tiqueteras',
+		controller:'controllerSubs',
+		templateUrl:'/views/subscripciones/tiqueteras.html'
 	})
 	.state('dashBoard.subscripciones.tiquetera.nueva',{
 		url:'/nueva',
