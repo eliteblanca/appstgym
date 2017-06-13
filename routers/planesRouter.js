@@ -6,8 +6,7 @@ var plan = mongoose.model('plan');
 var usuarios = mongoose.model('usuario');
 
 function agregar(req,res){
-	console.log('hola');
-	usuarios.findOne({'idUsuario':req.cookies.idUsuario}).exec(function (err,user) {
+	/*usuarios.findOne({'idUsuario':req.cookies.idUsuario}).exec(function (err,user) {
 		if(err){
 			console.log(err);
 			res.sendStatus(500);
@@ -36,6 +35,29 @@ function agregar(req,res){
 				}
 			})
 		}
+	});*/
+
+	usuarios.findOne({'idUsuario':req.cookies.idUsuario}).exec()
+	.then(function (user) {
+		if(user){
+			var newPlan = new plan({
+				gimnacio:user._id,
+				nombre : req.body.nombre,
+				duracion : req.body.duracion,
+				precio : req.body.precio
+			});
+			return [user,newPlan.save()];
+		}else{
+			throw new Error('usuario no encontrado');
+		}
+	}).spread(function (user,planGuardado) {
+		user.planes.push(planGuardado._id);
+		return [planGuardado,user.save()];
+	}).spread(function (planGuardado,user) {
+		res.send(planGuardado);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 

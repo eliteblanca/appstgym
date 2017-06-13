@@ -124,10 +124,15 @@ function listarClientesByCedula(req,res) {
 		path:'clientes',
 		match:{identificacion:req.query.cedula}
 	}).exec().then(	function (user) {
-		res.send(user.clientes);	
+		if(user){
+			res.send(user.clientes);	
+		}else{
+			throw new Error('no se ha enontrado usuario');
+		}
+		
 	}).catch(function (err) {
 		console.log(err);
-		res.sendStatus(500);	
+		res.sendStatus(500);
 	});
 }
 
@@ -177,7 +182,7 @@ function asociarGym(req,res,planGuardado) {
 }
 
 function listarPlanes(req,res){
-	usuarios.findOne({idUsuario:req.params.idUsuario}).populate('planes')
+	/*usuarios.findOne({idUsuario:req.params.idUsuario}).populate('planes')
 	.exec(function(err,user){
 		if(err){
 			console.log('error al buscar usuario');
@@ -187,6 +192,19 @@ function listarPlanes(req,res){
 			console.log(user.planes);
 			res.send(user.planes);
 		}
+	});*/
+
+	usuarios.findOne({idUsuario:req.params.idUsuario}).populate('planes')
+	.exec().then(function(user) {
+		if(user){
+			res.send(user.planes);
+		}else{
+			console.log(err);
+			throw new Error('usuario no encontrado');
+		}
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
