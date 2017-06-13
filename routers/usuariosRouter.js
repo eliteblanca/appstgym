@@ -5,24 +5,7 @@ moment = require('moment');
 var usuarios = mongoose.model('usuario');
 var planes = mongoose.model('plan');
 
-function agregar(req, res){	
-	/*var nuevoUser = new usuarios({
-		idUsuario: req.body.idUsuario,
-		contrasena: req.body.contrasena,
-		gimnacio: req.body.gimnacio,
-		fechaCreacionCuenta:moment().format("DD/M/YYYY")
-	});
-
-	nuevoUser.save(function(err,user){
-		if(err){
-			console.log(err)
-			res.sendStatus(500);
-		}else{
-			console.log('agregado: ' + user);
-			res.send(user);
-		}
-	});*/
-
+function agregar(req, res){
 	var nuevoUser = new usuarios({
 		idUsuario: req.body.idUsuario,
 		contrasena: req.body.contrasena,
@@ -48,6 +31,7 @@ function login(req,res){
 		function (user){
 			if(user.contrasena == req.body.contrasena){
 				res.cookie("idUsuario",user.idUsuario);
+
 				res.sendStatus(200);
 			}else{
 				console.log('contrasena incorrecta');
@@ -75,15 +59,14 @@ function listarClientes(req,res){
 		
 		var query = usuarios.findOne({idUsuario:req.params.idUsuario}).
 		populate('clientes');
-		query.exec(function(err,usuario) {
+		query.exec(function(err,usuario){
 			if(err){
 				res.sendStatus(500);
 			}else {
-
 				res.send(usuario.clientes);
 			}
-		});	
-	}	
+		});
+	}
 }
 
 function calcularEstadoClientes(req,res,clientes) {
@@ -124,34 +107,27 @@ function listarClientesByEstado (req,res) {
 }
 
 function listarClientesByName(req,res) {
-	var query = usuarios.findOne({idUsuario:req.params.idUsuario}).
+	usuarios.findOne({idUsuario:req.params.idUsuario}).
 	populate({
 		path:'clientes',
 		match:{nombre:req.query.nombre}
-	});
-
-	query.exec(function(err,usuario) {
-		if(err){
-			res.sendStatus(500);
-		}else {		
-			res.send(usuario.clientes);
-		}
+	}).exec().then(function (user) {
+		res.send(user.clientes);
+	}).catch(function (err) {
+		res.sendStatus(500);
 	});
 }
 
 function listarClientesByCedula(req,res) {
-	var query = usuarios.findOne({idUsuario:req.params.idUsuario}).
+	usuarios.findOne({idUsuario:req.params.idUsuario}).
 	populate({
 		path:'clientes',
 		match:{identificacion:req.query.cedula}
-	});
-
-	query.exec(function(err,usuario) {
-		if(err){
-			res.sendStatus(500);
-		}else {		
-			res.send(usuario.clientes);
-		}
+	}).exec().then(	function (user) {
+		res.send(user.clientes);	
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);	
 	});
 }
 
@@ -215,24 +191,30 @@ function listarPlanes(req,res){
 }
 
 function getUsuarios(req,res){
-	usuarios.find().exec(function(err,users) {
-		if(err){
-			console.log(err);
-		}else{
-			res.send(users);
-		}
+	usuarios.find().exec().then(function (users) {
+		res.send(users);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
 function getOneUsuario(req,res){
-	usuarios.findOne({idUsuario:req.params.idUsuario}).exec(function(err,user) {
-		if(err){
-			console.log(err);
-		}else{
-			res.send(user);
-		}
+	usuarios.findOne({idUsuario:req.params.idUsuario}).exec().then(function(err){
+		res.send(user);
+	}).catch(function (err){
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
+
+
+
+
+// falta esta funcion por implementar
+
+
+
 
 function delUser(req,res){
 	usuarios.findOne({idUsuario:req.params.idUsuario}).exec(function (err,user) {
@@ -243,10 +225,13 @@ function delUser(req,res){
 			} else {
 				res.sendStatus(200);
 			}
-
 		});
 	})
 }
+
+
+// falta esta funcion por implementar
+
 
 function delUsuarios (argument) {
 	usuarios.find().remove.exec(function (err) {
@@ -263,10 +248,10 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/usuarios', agregar);
 router.get('/usuarios', getUsuarios);
-router.delete('/usuarios',delUsuarios);
+router.delete('/usuarios',delUsuarios); //pendiente 
 
 router.get('/usuarios/:idUsuario',getOneUsuario);
-router.delete('/usuarios/:idUsuario',delUser);
+router.delete('/usuarios/:idUsuario',delUser); //pendiente
 router.get('/usuarios/:idUsuario/clientes',listarClientes);
 
 router.get('/usuarios/:idUsuario/planes',listarPlanes);
