@@ -6,37 +6,6 @@ var plan = mongoose.model('plan');
 var usuarios = mongoose.model('usuario');
 
 function agregar(req,res){
-	/*usuarios.findOne({'idUsuario':req.cookies.idUsuario}).exec(function (err,user) {
-		if(err){
-			console.log(err);
-			res.sendStatus(500);
-		}else {
-			var newPlan = new plan({
-				gimnacio:user._id,
-				nombre : req.body.nombre,
-				duracion : req.body.duracion,
-				precio : req.body.precio
-			});
-
-			newPlan.save(function (err,planGuardado) {
-				if(err){
-					console.log(err);
-					res.sendStatus(500);
-				}else{
-					user.planes.push(planGuardado._id);
-					user.save(function (err,user) {
-						if(err){
-							console.log(err);
-							res.sendStatus(500);
-						}else{
-							res.send(planGuardado);		
-						}
-					});					
-				}
-			})
-		}
-	});*/
-
 	usuarios.findOne({'idUsuario':req.cookies.idUsuario}).exec()
 	.then(function (user) {
 		if(user){
@@ -62,51 +31,43 @@ function agregar(req,res){
 }
 
 function getPlan(req,res){
-	plan.findById(req.params.plan).exec(function (err,plan) {
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		} else {
-			res.send(plan);
-		}
-	})
+	plan.findById(req.params.plan).exec().then(function (plan){
+		res.send(plan);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
+	});
 }
 
 function getAllPlanes(req,res) {
-	plan.find().exec(function(err,planEncontrado) {
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		} else {
-			res.send(planEncontrado);
-		}
+	plan.find().exec().then(function (planes) {
+		res.send(planEncontrado);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
 function delPlanes (req,res) {
-	plan.find().remove().exec(function (err) {
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		} else {
-			res.sendStatus(200);
-		}
+	plan.find().remove().exec().then(function (planes) {
+		res.sendStatus(200);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
+
 function delPlan (req,res) {
-	plan.remove({_id:req.params.plan},
-		function (err) {
-			if(err){
-				console.log(err);
-				res.sendStatus(500);
-			}
-			else{
-				usuarios.update({idUsuario:req.cookies.idUsuario},
-				{ $pull: {planes: req.params.plan } },function () {
-					res.sendStatus(200);
-				} );
-			}
-		});
+	plan.remove({_id:req.params.plan})
+	.then(function (){
+		return usuarios.update({idUsuario:req.cookies.idUsuario},
+				{ $pull: {planes: req.params.plan } });
+	}).then(function () {
+		res.sendStatus(200);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
+	});
 }
 
 router.post('/planes',agregar);
