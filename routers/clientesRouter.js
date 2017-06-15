@@ -7,8 +7,8 @@ moment = require('moment'),
 planes = mongoose.model('plan');
 
 function agregarCliente(req,res) {
-	console.log(req.body);
-	usuario.findOne({idUsuario:req.cookies.idUsuario}).exec(function (err,user) {
+
+	/*usuario.findOne({idUsuario:req.cookies.idUsuario}).exec(function (err,user) {
 		var newCliente = new cliente({
 			nombre:req.body.nombre,
 			identificacion:req.body.identificacion,
@@ -38,11 +38,43 @@ function agregarCliente(req,res) {
 				})							
 			}
 		});
-	});	
+	});*/	
+
+	usuario.findOne({idUsuario:req.cookies.idUsuario}).exec()
+	.then(function (user) {
+		if(user){
+			var newCliente = new cliente({
+			nombre:req.body.nombre,
+			identificacion:req.body.identificacion,
+			gimnacio:user._id,
+			sexo:req.body.sexo,
+			edad:req.body.edad,
+			fechaRegistro: moment().format("DD/M/YYYY"),
+			ultimoIngreso: moment().format("DD/M/YYYY"),
+			telefono:req.body.telefono,
+			direccion:req.body.direccion,
+			pesoInicial:req.body.pesoInicial,
+			pesoIdeal:req.body.pesoIdeal
+		});
+
+			return [user,newCliente.save()];
+		}else{
+			throw new Error('usuario no encontrado');
+		}
+	}).spread(function ( user,clienteGuardado) {
+		user.clientes.push(clienteGuardado._id);
+		return	[clienteGuardado,user.save()];
+	}).spread(function (clienteGuardado,usuarioGuardado) {
+		return res.send(clienteGuardado);
+	}).catch(function (err) {
+		console.log(err);
+		res.res.sendStatus(500);
+	});
+
 }
 
 function getCliente (req,res) {
-	var query = cliente.findById(req.params.idCliente);
+	/*var query = cliente.findById(req.params.idCliente);
 	query.exec(function (err,cliente){
 		if(err){
 			res.sendStatus(500);
@@ -68,11 +100,43 @@ function getCliente (req,res) {
 				res.send(clienteUpd);
 			});			
 		}
+	});*/
+
+	cliente.findById(req.params.idCliente).exec()
+	.then(function (cliente) {
+		if(cliente){
+			var activas = 0;
+			cliente.subscripcion.forEach(function (subs,index) {
+				console.log('analizando subs ' + subs.estado);
+				var fechaFinal = moment(subs.fechaFinal,"DD/M/YYYY");
+				if(fechaFinal.isBefore(moment(),'day')){
+					subs.estado = 'terminada';
+				}
+				if(subs.estado == 'activa'){
+					activas++;
+				}
+			});
+			if(activas){
+				cliente.estado = 'activo';
+			}else{
+				console.log('cambio a inactivo');
+				cliente.estado = 'inactivo';
+			}
+			return cliente.save();
+		}else{
+			throw new Error('cliente no encontrado');
+		}
+
+	}).then(function (clienteUpd) {
+		res.send(clienteUpd);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
 function eliminarCliente (req,res) {
-	cliente.remove({_id:req.params.idCliente},
+	/*cliente.remove({_id:req.params.idCliente},
 		function (err) {
 			if(err){
 				console.log(err);
@@ -84,18 +148,36 @@ function eliminarCliente (req,res) {
 						res.sendStatus(200);
 					} );
 			}
+		});*/
+
+		cliente.remove({_id:req.params.idCliente})
+		.then(function (clienteBorrado) {
+			return usuario.update({idUsuario:req.cookies.idUsuario},
+				{ $pull: {clientes: req.params.idCliente } });
+		}).then(function (usuarioUpd) {
+			res.sendStatus(200);
+		}).catch(function (err) {
+			console.log(err);
+			res.sendStatus(500);
 		});
+
+
+
+
+
+
+
+
 }
 
 function getAllClientes(req,res){
-	cliente.find().exec(function (err,clientes) {
-		if (err) {
-			console.log(err);
-			res.sendStatus(500);
-		} else {
-			res.send(clientes);
-		}
-	});
+	cliente.find().exec()
+	.then(function (clientes) {
+		res.send(clientes);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
+	});		
 }
 
 function agregarSubs(req,res) {
