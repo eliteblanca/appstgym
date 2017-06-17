@@ -40,8 +40,8 @@
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Plan</label>
 				<div class="col-sm-8">
-					<select class="form-control" ng-model='cliente.plan'>
-						<option value="{{plan._id}}" ng-repeat='plan in planes'>{{plan.nombre}}</option>						
+					<select class="form-control" ng-model='cliente.plan' ng-options="plan.id as plan.nombre for plan in planes">
+						<option value="">plan</option>						
 					</select>
 				</div>
 			</div>	
