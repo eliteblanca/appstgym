@@ -181,7 +181,7 @@ function getAllClientes(req,res){
 }
 
 function agregarSubs(req,res) {
-	cliente.findOne({'_id':req.params.idCliente}).exec(function (err,clienteEncontrado) {
+	/*cliente.findOne({'_id':req.params.idCliente}).exec(function (err,clienteEncontrado) {
 		if(clienteEncontrado.subscripcion.length == 0){
 			agregarUnicaSubs(req,res,clienteEncontrado);
 		}else{
@@ -197,6 +197,32 @@ function agregarSubs(req,res) {
 				agregarUnicaSubs(req,res,clienteEncontrado);
 			}
 		}
+	});*/
+
+	cliente.findOne({'_id':req.params.idCliente}).exec()
+	.then(function (clienteEncontrado) {
+		if(clienteEncontrado){
+			if(clienteEncontrado.subscripcion.length == 0){
+				agregarUnicaSubs(req,res,clienteEncontrado);
+			}else{
+				var activas = 0;
+				clienteEncontrado.subscripcion.forEach(function (subs,index) {
+				if (subs.estado == 'activa' || subs.estado == 'pendiente' || subs.estado == 'suspendida') {
+					activas++;
+				}
+				});
+				if(activas){
+					agregarSubsPendiente(req,res,clienteEncontrado);
+				}else{
+					agregarUnicaSubs(req,res,clienteEncontrado);
+				}
+			}		
+		}else{
+			throw new Error('no se ha encontrado cliente');
+		}
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
@@ -208,7 +234,7 @@ function agregarUnicaSubs (req,res,clienteEncontrado) {
 		estado:'activa'
 	}
 
-	planes.findOne({'_id':req.body.plan}).exec(function (err,plan){
+	/*planes.findOne({'_id':req.body.plan}).exec(function (err,plan){
 		var fechaInicioAux = moment();
 		var fechaFinal = fechaInicioAux.add(plan.duracion - 1,'days');
 		newSubs.fechaFinal = fechaFinal.format("DD/M/YYYY");
@@ -221,7 +247,26 @@ function agregarUnicaSubs (req,res,clienteEncontrado) {
 				res.send(clienteGuardado.subscripcion[clienteGuardado.subscripcion.length - 1]);
 			}
 		});
+	})*/
+
+	planes.findOne({'_id':req.body.plan}).exec()
+	.then(function (plan) {
+		if(plan){
+			var fechaInicioAux = moment();
+			var fechaFinal = fechaInicioAux.add(plan.duracion - 1,'days');
+			newSubs.fechaFinal = fechaFinal.format("DD/M/YYYY");
+			clienteEncontrado.subscripcion.push(newSubs);	
+			return clienteEncontrado.save();
+		}else{
+			throw new Error('plan no encontrado');
+		}
+	}).then(function (clienteGuardado) {
+		res.send(clienteGuardado.subscripcion[clienteGuardado.subscripcion.length - 1]);
 	})
+	.catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
+	});
 }
 
 function agregarSubsPendiente(req,res,clienteEncontrado) {
@@ -231,7 +276,7 @@ function agregarSubsPendiente(req,res,clienteEncontrado) {
 		estado:'pendiente'
 	}
 
-	clienteEncontrado.subscripcion.push(newSubs);
+	/*clienteEncontrado.subscripcion.push(newSubs);
 	clienteEncontrado.save(function (err,clienteGuardado) {
 		if(err){
 			console.log(err);
@@ -239,29 +284,57 @@ function agregarSubsPendiente(req,res,clienteEncontrado) {
 		}else{
 			res.send(clienteGuardado.subscripcion[clienteGuardado.subscripcion.length - 1]);
 		}
+	});*/
+
+clienteEncontrado.subscripcion.push(newSubs);
+	clienteEncontrado.save()
+	.then(function (clienteGuardado) {
+		res.send(clienteGuardado.subscripcion[clienteGuardado.subscripcion.length - 1]);
+	}).catch(function (err) {
+		console.log(err);
+		res.sendStatus(500);
 	});
 }
 
 function cambiarSuspendida (req,res,clienteEncontrado){
+	// var subs = clienteEncontrado.subscripcion.id(req.params.idSubs);
+	// if(subs.estado == 'pendiente'){
+	// 	res.sendStatus(401);
+	// }else{
+	// 	subs.estado = 'suspendida';
+	// 	var fechaFinal = moment(subs.fechaFinal,'DD/M/YYYY');
+	// 	subs.tiempoFaltanteParaFin = fechaFinal.diff(moment(),'days') + 1;
+	// 	console.log('tiempo faltante' + subs.tiempoFaltanteParaFin);
+	// 	subs.fechaFinal = '';
+	// 	clienteEncontrado.save(function (err){
+	// 		if(err){
+	// 			console.log(err);
+	// 			res.sendStatus(500);
+	// 		}else{
+	// 			res.send(subs);
+	// 		}
+	// 	});
+	// }
+
 	var subs = clienteEncontrado.subscripcion.id(req.params.idSubs);
 	if(subs.estado == 'pendiente'){
-		res.sendStatus(401);
+		throw new Error('subscripcion ya pendiente');
 	}else{
 		subs.estado = 'suspendida';
 		var fechaFinal = moment(subs.fechaFinal,'DD/M/YYYY');
 		subs.tiempoFaltanteParaFin = fechaFinal.diff(moment(),'days') + 1;
 		console.log('tiempo faltante' + subs.tiempoFaltanteParaFin);
 		subs.fechaFinal = '';
-		clienteEncontrado.save(function (err){
-			if(err){
-				console.log(err);
-				res.sendStatus(500);
-			}else{
-				res.send(subs);
-			}
+		
+		clienteEncontrado.save()
+		.then(function (clienteGuardado) {
+			res.send(subs);
+			//res.send(clienteGuardado.subscripcion.id(req.params.idSubs));
 		});
+
 	}
 }
+
 
 function cambiarActiva(req,res,clienteEncontrado) {
 	console.log('inicio cambio');
