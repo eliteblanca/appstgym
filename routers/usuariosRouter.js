@@ -218,7 +218,8 @@ function getUsuarios(req,res){
 }
 
 function getOneUsuario(req,res){
-	usuarios.findOne({idUsuario:req.params.idUsuario}).exec().then(function(err){
+	usuarios.findOne({idUsuario:req.params.idUsuario}).exec()
+	.then(function(user){
 		res.send(user);
 	}).catch(function (err){
 		console.log(err);
