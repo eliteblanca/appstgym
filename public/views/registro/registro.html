@@ -1,5 +1,5 @@
 <div class="w(400) mt(200) mx-auto brdr1 brdrc--grey br5 bgc--white bxsh1 pa1">
-	<form>
+	<form novalidate name="formRegistro">
 		<div class="form-group row">
 			<label class="col-sm-3 col-form-label" for="usuario">Usuario</label>
 			<div class="col-sm-9">
@@ -7,10 +7,10 @@
 			</div>
 		</div>
 
-<div class="form-group row">
+		<div class="form-group row" ng.class="{'has-warning':formRegistro.contrasena.$dirty}">
 			<label class="col-sm-3 col-form-label" for="contrasena">Contrasena</label>
 			<div class="col-sm-9">
-				<input type="password" id="contrasena" class="form-control" ng-model='usuario.contrasena'>
+				<input type="password" id="contrasena" class="form-control" ng-model='usuario.contrasena' name="contraseña">
 			</div>
 		</div>
 

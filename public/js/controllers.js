@@ -274,8 +274,8 @@ angular.module('gymApp')
 
 	$scope.subscribir = function (){
 		if($scope.formSubs.$valid){
-			clientesService.subscribir($scope.plan,$scope.cliente._id).then(
-			function (planRecivido) {
+			clientesService.subscribir($scope.plan,$scope.cliente._id)
+			.then(function (planRecivido) {
 				$scope.cliente.subscripcion.push(planRecivido);
 				$scope.agregarClienteFlg = true;
 				$scope.actualizarClienteEnLista();

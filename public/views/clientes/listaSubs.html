@@ -38,7 +38,7 @@
 		<select class="form-control" ng-model='planNuevo' name="plan">
 						<option value="{{plan._id}}" ng-repeat='plan in planes'>{{plan.nombre}}</option>	
 		</select>
-		<span ng-show="formSubs.plan.$error.required && formSubs.plan.$dirty" class="fcr">Elija un plan</span>
+		<span ng-show="formSubs.plan.$error.required" class="fcr">Elija un plan</span>
 	</div>
 	</form>
 </div>
