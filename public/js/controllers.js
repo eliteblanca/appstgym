@@ -272,17 +272,17 @@ angular.module('gymApp')
 		});
 	}
 
-	$scope.subscribir = function (plan){
-		console.log(plan);
-		clientesService.subscribir(plan,$scope.cliente._id).then(
-		function (planRecivido) {
-			console.log(planRecivido);
-			$scope.cliente.subscripcion.push(planRecivido);
-			$scope.agregarClienteFlg = true;
-			$scope.actualizarClienteEnLista();
-		},function (err) {
-			console.log(err);
-		});
+	$scope.subscribir = function (){
+		if($scope.formSubs.$valid){
+			clientesService.subscribir($scope.plan,$scope.cliente._id).then(
+			function (planRecivido) {
+				$scope.cliente.subscripcion.push(planRecivido);
+				$scope.agregarClienteFlg = true;
+				$scope.actualizarClienteEnLista();
+			},function (err) {
+				console.log(err);
+			});
+		}
 	}
 
 	$scope.eliminarSubs = function (idSubs,index){
