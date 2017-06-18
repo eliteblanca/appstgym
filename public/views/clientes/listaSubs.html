@@ -25,9 +25,10 @@
 </div>
 
 <div class="row">
+<form novalidate ng-submit="subscribir()" name="formSubs">
 	<div class="col-sm-2" ng-hide="agregarClienteFlg">
-	<form novalidate ng-submit="subscribir()" name="formSubs">
-		<input type="submit" class="btn btn-secondary bg-success text-white boton__opciones mb1" ng-required="true"><img src="/img/check.svg" class="icono">Subscribir</button>
+	
+		<input type="submit" class="btn btn-secondary bg-success text-white boton__opciones mb1" ng-required="true"><img src="/img/check.svg" class="icono">Subscribir</input>
 		
 	</div>
 	<div class="col-sm-3" ng-show="agregarClienteFlg">
