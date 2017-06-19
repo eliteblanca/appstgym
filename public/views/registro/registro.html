@@ -3,7 +3,7 @@
 		<div class="form-group row" ng-class="{'has-danger':formRegistro.idUsuario.$dirty && formRegistro.idUsuario.$error.required}">
 			<label class="col-sm-3 col-form-label" for="usuario">Usuario</label>
 			<div class="col-sm-9">
-				<input type="text" id="usuario" class="form-control" placeholder="Usuario" ng-model='usuario.idUsuario' ng-required="true" name="idUsuario">
+				<input type="text" id="usuario" name="idUsuario" class="form-control" placeholder="Usuario" ng-model='usuario.idUsuario' ng-required="true" >
 				 <div class="form-control-feedback">Debes ingresar tu <usuario</div>
 			</div>
 		</div>
@@ -11,7 +11,7 @@
 		<div class="form-group row" ng-class="{'has-danger':formRegistro.contrasena.$dirty && formRegistro.contrasena.$error.required}">
 			<label class="col-sm-3 col-form-label" for="contrasena">Contrasena</label>
 			<div class="col-sm-9">
-				<input type="password" id="contrasena" class="form-control" ng-model='usuario.contrasena' name="contrasena" ng-required="true">
+				<input type="password" id="contrasena"  name="contrasena" class="form-control" ng-model='usuario.contrasena' ng-required="true">
 				<div class="form-control-feedback" ng-show="{formRegistro.contrasena.$dirty && formRegistro.contrasena.$error.required}">Debes ingresar una contraseña</div>
 
 			</div>
@@ -20,7 +20,7 @@
 		<div class="form-group row" ng-class="{'has.danger':formRegistro.gimnacio.$dirty && formRegistro.gimnacio.$error.required'}">
 			<label class="col-sm-3 col-form-label" for="gimnacio">Gimnacio</label>
 			<div class="col-sm-9">
-				<input type="text" id="gimnacio" class="form-control" placeholder="Gimnacio" ng-model='usuario.gimnacio' name="gimnacio" ng-required="true">
+				<input type="text" id="gimnacio" name="gimnacio" class="form-control" placeholder="Gimnacio" ng-model='usuario.gimnacio' ng-required="true">
 				<div class="form-control-feedback">Debes ingresar el nombre de tu gimnacio</div>
 
 			</div>
