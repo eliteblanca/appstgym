@@ -1,5 +1,6 @@
 <div class="w(400) mt(200) mx-auto brdr1 brdrc--grey br5 bgc--white bxsh1 pa1">
 	<form novalidate name="formRegistro" ng-submit="agregarUsuario(usuario)">
+
 		<div class="form-group row" ng-class="{'has-danger':formRegistro.idUsuario.$dirty && formRegistro.idUsuario.$error.required}">
 			<label class="col-sm-3 col-form-label" for="usuario">Usuario</label>
 			<div class="col-sm-9">
@@ -17,7 +18,7 @@
 			</div>
 		</div>
 
-		<div class="form-group row" ng-class="{'has.danger':formRegistro.gimnacio.$dirty && formRegistro.gimnacio.$error.required'}">
+		<div class="form-group row" ng-class="{'has-danger':formRegistro.gimnacio.$dirty && formRegistro.gimnacio.$error.required'}">
 			<label class="col-sm-3 col-form-label" for="gimnacio">Gimnacio</label>
 			<div class="col-sm-9">
 				<input type="text" id="gimnacio" name="gimnacio" class="form-control" placeholder="Gimnacio" ng-model='usuario.gimnacio' ng-required="true">
