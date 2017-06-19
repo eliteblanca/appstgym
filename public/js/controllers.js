@@ -6,16 +6,18 @@ angular.module('gymApp')
 	$scope.usuario = {};
 	$scope.estadoLogin = 'no login';
 	$scope.agregarUsuario = function(usuario){
-		usuariosService.agregarUsuario(usuario).then(
-			function(data){
-				$scope.usuarioAgregado = {'idUsuario': data.idUsuario}
-				console.log('agregado correctamente');
-				$state.go('login');
-			},
-			function(err){
-				console.log('error al agregar');
-				console.log(err);
-			})
+		if($scope.formRegistro.$valid){
+			usuariosService.agregarUsuario(usuario).then(
+				function(data){
+					$scope.usuarioAgregado = {'idUsuario': data.idUsuario};
+					console.log('agregado correctamente');
+					$state.go('login');
+				},
+				function(err){
+					console.log('error al agregar');
+					console.log(err);
+			});
+		}			
 	}
 
 	$scope.login = function(usuario){
