@@ -4,25 +4,25 @@
 		<h5 class="dib">Nuevo Plan</h5>
 	</div>
 	<div class="pa1">		
-		<form>
-			<div class="form-group row">
+		<form novalidate name="formNuevoPlan" ng-submit="agregarPlan()">
+			<div class="form-group row" ng-class="{'has-danger':formNuevoPlan.nombre.$dirty && formRegistro.nombre.$error.required}">
 				<label class="col-sm-2 col-form-label">Nombre</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" ng-model='plan.nombre'>
+					<input type="text" class="form-control" ng-model='plan.nombre' name="nombre" ng-required="true">
 				</div>
 			</div>
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Duracion(dias)</label>
+			<div class="form-group row" ng-class="{'has-danger':formNuevoPlan.duracion.$dirty && formRegistro.duracion.$error.required}">
+				<label class="col-sm-2 acol-form-label">Duracion(dias)</label>
 				<div class="col-sm-3">
-					<input type="number" class="form-control" ng-model='plan.duracion'>
+					<input type="number" class="form-control" ng-model='plan.duracion' name="duracion" ng-required="true">
 				</div>
 			</div>
 						
-			<div class="form-group row">
+			<div class="form-group row" ng-class="{'has-danger':formNuevoPlan.precio.$dirty && formRegistro.precio.$error.required}">
 				<label class="col-sm-2 col-form-label">Precio</label>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model='plan.precio'>
+						<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model='plan.precio' name="precio" ng-required="true">
 						<span class="input-group-addon">$</span>
 					</div>
 				</div>
@@ -30,7 +30,7 @@
 			
 			<div class="form-group row">
 				<div class="offset-sm-2 col-sm-3">
-					<button type="submit" class="btn btn-primary bg-success text-white boton__opciones" ng-click="agregarPlan(plan)"><img src="/img/plus.svg" class="icono">Agregar</button>
+					<button type="submit" class="btn btn-primary bg-success text-white boton__opciones"><img src="/img/plus.svg" class="icono">Agregar</button>
 				</div>
 			</div>
 		</form>

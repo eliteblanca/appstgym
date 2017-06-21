@@ -437,7 +437,7 @@ function changeCliente (req,res) {
 	}else{
 		cliente.findOne({'_id':req.params.idCliente}).exec()
 		.then(function (clienteEncontrado) {
-			clienteEncontrado.nombre = req.body.nombe || clienteEncontrado.nombre;
+			clienteEncontrado.nombre = req.body.nombre || clienteEncontrado.nombre;
 			clienteEncontrado.sexo = req.body.sexo || clienteEncontrado.sexo;
 			clienteEncontrado.edad = req.body.edad || clienteEncontrado.edad;
 			clienteEncontrado.telefono = req.body.telefono || clienteEncontrado.telefono;

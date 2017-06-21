@@ -20,8 +20,9 @@ angular.module('gymApp')
 		}			
 	}
 
-	$scope.login = function(usuario){
-		usuariosService.login(usuario).then(
+	$scope.login = function(){
+		if($scope.formLogin.$valid){
+			usuariosService.login($scope.usuario).then(
 			function(data){
 				console.log('autenticado correctamente');
 				$scope.estadoLogin = 'login aceptado';
@@ -30,7 +31,8 @@ angular.module('gymApp')
 			function(err){
 				console.log('no autenticado');
 				$scope.estadoLogin = 'login rechazado';
-			})
+			});
+		}		
 	}
 }])
 .controller('controllerDashBoard', ['$scope','$state','$cookies','usuariosService', function($scope,$state,$cookies,usuariosService){
@@ -358,15 +360,15 @@ angular.module('gymApp')
 	$state.go('dashBoard.subscripciones.planes');
 	$scope.plan = $scope.plan || {};
 	$scope.planes = $scope.planes || new Array();
-	$scope.agregarPlan = function(plan){
-		planesService.agregarPlan(plan).then(function (planGuardado) {
-			console.log('planes sin nuevo: ' +$scope.planes);
-			$scope.planes.push(planGuardado);
-			console.log('plan agregado correctamente: ' + $scope.planes);
-			$state.go('dashBoard.subscripciones.planes');
-		},function (err) {
-			console.log(err);
-		});
+	$scope.agregarPlan = function(){
+		if($scope.formNuevoPlan.$valid){
+			planesService.agregarPlan($scope.plan).then(function (planGuardado) {
+				$scope.planes.push(planGuardado);
+				$state.go('dashBoard.subscripciones.planes');
+			},function (err) {
+				console.log(err);
+			});	
+		}		
 	}
 
 	$scope.listarPlanes = function (idUsuario) {

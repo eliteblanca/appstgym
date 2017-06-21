@@ -1,18 +1,18 @@
 
 <div class="w(400) mt(200) mx-auto brdrc--grey br3 bgc--grey pa2" login>
-    <form>
-        <div class="form-group row">
+    <form name="formLogin" ng-submit="login()">
+        <div class="form-group row" ng-class="{'has-danger':formLogin.idUsuario.$dirty && formLogin.idUsuario.$error.required}">
             <label class="col-sm-2 col-form-label" for="usuario">Usuario</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="usuario" ng-model='usuario.idUsuario' id="usuario">
+                <input type="text" class="form-control" placeholder="usuario" ng-model='usuario.idUsuario' id="usuario" name="idUsuario" ng-required="true">
                 
             </div>
         </div>    
 
-        <div class="form-group row">
+        <div class="form-group row" ng-class="{'has-danger':formLogin.contrasena.$dirty && formLogin.contrasena.$error.required}">
             <label class="col-sm-3 col-form-label" for="password">Contraseña</label>
             <div class="col-sm-9">
-                <input type="password" class='form-control' id="password" ng-model='usuario.contrasena' placeholder="contraseña">
+                <input type="password" class='form-control' id="password" ng-model='usuario.contrasena' placeholder="contraseña" name="contrasena" ng-required="true">
             </div>
         </div>
         <div class="row">
@@ -22,7 +22,7 @@
                 <h6>v0.2</h6>
             </div>
             <div class="col-sm-6">
-                <button type="button" class="fr btn btn-secondary bg-success text-white boton__opciones" ng-click="login(usuario)"><img src="/img/check.svg" class="icono mr1">Login</button>
+                <button type="button" class="fr btn btn-secondary bg-success text-white boton__opciones"><img src="/img/check.svg" class="icono mr1">Login</button>
             </div>
         </div>
     </form>
