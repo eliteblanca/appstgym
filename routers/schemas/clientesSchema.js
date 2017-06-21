@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var subSchema = require('./subscripcionSchema.js');
 var clientesSchema = mongoose.Schema({
 	nombre:{type:'String',required:true},
-	identificacion:{type:'String',required:true,unique:true,dropDups: true},
+	identificacion:{type:'String',required:true,unique:true,dropDups: true, sparse: true},
 	gimnacio:{ type: mongoose.Schema.Types.ObjectId, ref: 'usuario'},
 	subscripcion:[subSchema],
 	sexo:{type:'String',required:false},
