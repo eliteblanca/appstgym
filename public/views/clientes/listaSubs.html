@@ -1,45 +1,43 @@
 <div>
 	
 
-<div class="brdr1 br5 brdrc--grey bxsh1 bgc--white mb1 clearfix" ng-repeat="sub in cliente.subscripcion">
-	<div class="pa1 fl">
-		<div class="">
-			Dias para finalizar:	
+	<div class="brdr1 br5 brdrc--grey bxsh1 bgc--white mb1 clearfix" ng-repeat="sub in cliente.subscripcion">
+		<div class="pa1 fl">
+			<div class="">
+				Dias para finalizar:	
+			</div>
+			<div class="">
+				<h1 class="ft14 tac">{{numeroInfoDias(sub.plan,sub.fechaInicio)}}</h1>	
+			</div>				
 		</div>
-		<div class="">
-			<h1 class="ft14 tac">{{numeroInfoDias(sub.plan,sub.fechaInicio)}}</h1>	
-		</div>				
+
+		<div class="pa1 brdr1--left brdrc--grey fl">
+			<p>Plan: {{nombrePlan(sub.plan)}}</p>
+			<p>Estado:{{sub.estado}}</p>
+			<p>Inicio: {{sub.fechaInicio}}</p>
+			<p>Finaliza:{{sub.fechaFinal}}</p>
+			<p>Ultimo ingreso: {{cliente.ultimoIngreso}}</p>
+		</div>
+		<img src="/img/close.svg" class="icono mr1 mt1 fr" ng-click="eliminarSubs(sub._id,$index)">
+		<img src = '/img/control-pause.svg' class = 'icono mr1 mt1 fr' ng-click="suspenderSubs(sub._id,$index)"> 
+		<img src="/img/control-play.svg" class="icono mr1 mt1 fr" ng-click="activarSubs(sub._id,$index)">
+
 	</div>
 
-	<div class="pa1 brdr1--left brdrc--grey fl">
-		<p>Plan: {{nombrePlan(sub.plan)}}</p>
-		<p>Estado:{{sub.estado}}</p>
-		<p>Inicio: {{sub.fechaInicio}}</p>
-		<p>Finaliza:{{sub.fechaFinal}}</p>
-		<p>Ultimo ingreso: {{cliente.ultimoIngreso}}</p>
-	</div>
-	<img src="/img/close.svg" class="icono mr1 mt1 fr" ng-click="eliminarSubs(sub._id,$index)">
-	<img src = '/img/control-pause.svg' class = 'icono mr1 mt1 fr' ng-click="suspenderSubs(sub._id,$index)"> 
-	<img src="/img/control-play.svg" class="icono mr1 mt1 fr" ng-click="activarSubs(sub._id,$index)">
+	<form novalidate ng-submit="subscribir()" name="forms.formSubs">
+		<div class="form-group row" ng-class="{'has-danger':forms.formSubs.$submitted && forms.formSubs.plan.$error.required}">
+			<div class="col-sm-2">
+				<select class="form-control" ng-model='planNuevo' name="plan" ng-required="true">
+					<option value="{{plan._id}}" ng-repeat='plan in planes'>{{plan.nombre}}</option>	
+				</select>        
 
-</div>
+				<div class="form-control-feedback" ng-show="forms.formSubs.$submitted && forms.formSubs.contrasena.$error.required">Debes seleccionar un plan</div>
+			</div>
+			<div class="col-sm-2">
+				<button type="submit" class="fr btn btn-secondary bg-success text-white boton__opciones"><img src="/img/	check.svg" class="icono mr1">Subscribir</button>		
+			</div>
+		</div>
 
-<div class="row">
-<form novalidate ng-submit="subscribir()" name="formSubs">
-	<div class="col-sm-2" ng-hide="agregarClienteFlg">
-	
-		<input type="submit" class="btn btn-secondary bg-success text-white boton__opciones mb1" ng-required="true" value="subscribir">
-		
-	</div>
-	<div class="col-sm-3" ng-show="agregarClienteFlg">
-		<button type="button" class="btn btn-secondary bg-success text-white boton__opciones mb1" ng-click="mostrarOpciones()"><img src="/img/plus.svg" class="icono">  Nueva subscripcion</button>
-	</div>
-	<div class="col-sm-2" ng-hide="agregarClienteFlg">
-		<select class="form-control" ng-model='planNuevo' name="plan">
-						<option value="{{plan._id}}" ng-repeat='plan in planes'>{{plan.nombre}}</option>	
-		</select>
-		<span ng-show="formSubs.plan.$error.required" class="fcr">Elija un plan</span>
-	</div>
 	</form>
-</div>
+
 </div>

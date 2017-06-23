@@ -4,27 +4,31 @@
 		<h5 class="dib">Nuevo Plan</h5>
 	</div>
 	<div class="pa1">		
-		<form novalidate name="formNuevoPlan" ng-submit="agregarPlan()">
-			<div class="form-group row" ng-class="{'has-danger':formNuevoPlan.nombre.$dirty && formRegistro.nombre.$error.required}">
+		<form novalidate name="forms.formNuevoPlan" ng-submit="agregarPlan()">
+			<div class="form-group row" ng-class="{'has-danger':forms.formNuevoPlan.$submitted && forms.formNuevoPlan.nombre.$error.required}">
 				<label class="col-sm-2 col-form-label">Nombre</label>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" ng-model='plan.nombre' name="nombre" ng-required="true">
+					<div class="form-control-feedback" ng-show="forms.formNuevoPlan.$submitted && forms.formNuevoPlan.nombre.$error.required">Debes ingresar el nombre del plan</div>
 				</div>
 			</div>
-			<div class="form-group row" ng-class="{'has-danger':formNuevoPlan.duracion.$dirty && formRegistro.duracion.$error.required}">
+			<div class="form-group row" ng-class="{'has-danger':forms.formNuevoPlan.$submitted && forms.formNuevoPlan.duracion.$error.required}">
 				<label class="col-sm-2 acol-form-label">Duracion(dias)</label>
 				<div class="col-sm-3">
 					<input type="number" class="form-control" ng-model='plan.duracion' name="duracion" ng-required="true">
+					<div class="form-control-feedback" ng-show="forms.formNuevoPlan.$submitted && forms.formNuevoPlan.duracion.$error.required">Debes ingresar la duracion del plan</div>
 				</div>
 			</div>
 						
-			<div class="form-group row" ng-class="{'has-danger':formNuevoPlan.precio.$dirty && formRegistro.precio.$error.required}">
+			<div class="form-group row" ng-class="{'has-danger':forms.formNuevoPlan.$submitted && forms.formNuevoPlan.precio.$error.required}">
 				<label class="col-sm-2 col-form-label">Precio</label>
 				<div class="col-sm-3">
 					<div class="input-group">
 						<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" ng-model='plan.precio' name="precio" ng-required="true">
 						<span class="input-group-addon">$</span>
+
 					</div>
+					<div class="form-control-feedback" ng-show="forms.formNuevoPlan.$submitted && forms.formNuevoPlan.precio.$error.required">Debes ingresar precio del plan</div>
 				</div>
 			</div>
 			

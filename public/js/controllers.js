@@ -3,11 +3,12 @@ angular.module('gymApp')
 	$state.go('login');
 }])
 .controller('controllerRegistro', ['$scope','usuariosService','$state', function($scope,usuariosService,$state){
+	$scope.forms = {};
 	$scope.usuario = {};
 	$scope.estadoLogin = 'no login';
-	$scope.agregarUsuario = function(usuario){
-		if($scope.formRegistro.$valid){
-			usuariosService.agregarUsuario(usuario).then(
+	$scope.agregarUsuario = function(){
+		if($scope.forms.formRegistro.$valid){
+			usuariosService.agregarUsuario($scope.usuario).then(
 				function(data){
 					$scope.usuarioAgregado = {'idUsuario': data.idUsuario};
 					console.log('agregado correctamente');
@@ -17,11 +18,11 @@ angular.module('gymApp')
 					console.log('error al agregar');
 					console.log(err);
 			});
-		}			
+		}
 	}
 
 	$scope.login = function(){
-		if($scope.formLogin.$valid){
+		if($scope.forms.formLogin.$valid){
 			usuariosService.login($scope.usuario).then(
 			function(data){
 				console.log('autenticado correctamente');
@@ -49,6 +50,7 @@ angular.module('gymApp')
 	}
 }])
 .controller('controllerClienteNuevo', ['$scope','$stateParams','clientesService','planesService', function($scope,$stateParams,clientesService,planesService){
+	
 	console.log('controller nuevo cliente');
 	$scope.planes = new Array();
 	planesService.getPlanes().then(
@@ -59,6 +61,7 @@ angular.module('gymApp')
 		});
 }])
 .controller('controllerClientes', ['$scope','clientesService', '$state',function($scope,clientesService,$state){
+	$scope.forms = {};
 	$scope.cliente = $scope.cliente || {};
 	$scope.clientes = $scope.clientes || new Array();
 	$scope.tipoBusqueda = 'cedula';
@@ -194,6 +197,7 @@ angular.module('gymApp')
 	}
 }])
 .controller('controllerClientesPerfil', ['$scope','$state','clientesService','$stateParams','planesService', function($scope,$state,clientesService,$stateParams,planesService){
+	$scope.forms = {};
 	$scope.agregarClienteFlg = true;
 	$scope.cliente = {};
 	$scope.planes = new Array();
@@ -233,7 +237,7 @@ angular.module('gymApp')
 		}else if (fechaFinal.isBefore(moment(),'day')) {
 			return 'Fin';
 		}else{
-			return 'error';
+			return '?';
 		}
 	}
 
@@ -277,8 +281,8 @@ angular.module('gymApp')
 	}
 
 	$scope.subscribir = function (){
-		if($scope.formSubs.$valid){
-			clientesService.subscribir($scope.plan,$scope.cliente._id)
+		if($scope.forms.formSubs.$valid){
+			clientesService.subscribir($scope.planNuevo,$scope.cliente._id)
 			.then(function (planRecivido) {
 				$scope.cliente.subscripcion.push(planRecivido);
 				$scope.agregarClienteFlg = true;
@@ -357,11 +361,12 @@ angular.module('gymApp')
 	}
 }])
 .controller('controllerSubs', ['$scope','$state','planesService','$cookies', function($scope,$state,planesService,$cookies){
+	$scope.forms={};
 	$state.go('dashBoard.subscripciones.planes');
 	$scope.plan = $scope.plan || {};
 	$scope.planes = $scope.planes || new Array();
 	$scope.agregarPlan = function(){
-		if($scope.formNuevoPlan.$valid){
+		if($scope.forms.formNuevoPlan.$valid){
 			planesService.agregarPlan($scope.plan).then(function (planGuardado) {
 				$scope.planes.push(planGuardado);
 				$state.go('dashBoard.subscripciones.planes');

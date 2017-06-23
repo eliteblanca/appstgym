@@ -1,28 +1,30 @@
 
 <div class="w(400) mt(200) mx-auto brdrc--grey br3 bgc--grey pa2" login>
-    <form name="formLogin" ng-submit="login()">
-        <div class="form-group row" ng-class="{'has-danger':formLogin.idUsuario.$dirty && formLogin.idUsuario.$error.required}">
+    <form name="forms.formLogin" ng-submit="login()" novalidate>
+        <div class="form-group row" ng-class="{'has-danger':forms.formLogin.$submitted && forms.formLogin.idUsuario.$error.required}">
             <label class="col-sm-2 col-form-label" for="usuario">Usuario</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" placeholder="usuario" ng-model='usuario.idUsuario' id="usuario" name="idUsuario" ng-required="true">
-                
+                <div class="form-control-feedback" ng-show="forms.formLogin.$submitted && forms.formLogin.idUsuario.$error.required">Debes ingresar tu usuario</div>
+
             </div>
         </div>    
-
-        <div class="form-group row" ng-class="{'has-danger':formLogin.contrasena.$dirty && formLogin.contrasena.$error.required}">
+        <div class="form-group row" ng-class="{'has-danger':forms.formLogin.$submitted && forms.formLogin.contrasena.$error.required}">
             <label class="col-sm-3 col-form-label" for="password">Contraseña</label>
             <div class="col-sm-9">
                 <input type="password" class='form-control' id="password" ng-model='usuario.contrasena' placeholder="contraseña" name="contrasena" ng-required="true">
+
+                <div class="form-control-feedback" ng-show="forms.formLogin.$submitted && forms.formLogin.contrasena.$error.required">Debes ingresar tu contraseña</div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <a ui-sref='registro'>Registrarse</a>
                 <p>Recordar contraseña</p>
-                <h6>v0.2</h6>
+                <h6>v0.3</h6>
             </div>
             <div class="col-sm-6">
-                <button type="button" class="fr btn btn-secondary bg-success text-white boton__opciones"><img src="/img/check.svg" class="icono mr1">Login</button>
+                <button type="submit" class="fr btn btn-secondary bg-success text-white boton__opciones"><img src="/img/check.svg" class="icono mr1">Login</button>
             </div>
         </div>
     </form>
