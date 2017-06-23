@@ -362,8 +362,8 @@ angular.module('gymApp')
 }])
 .controller('controllerSubs', ['$scope','$state','planesService','$cookies', function($scope,$state,planesService,$cookies){
 	$scope.forms={};
-	$state.go('dashBoard.subscripciones.planes');
 	$scope.plan = $scope.plan || {};
+	$scope.tiquetera = $scope.tiquetera || {};
 	$scope.planes = $scope.planes || new Array();
 	$scope.agregarPlan = function(){
 		if($scope.forms.formNuevoPlan.$valid){
@@ -400,6 +400,14 @@ angular.module('gymApp')
 		console.log('listando planes');
 		$scope.listarPlanes($cookies.get('idUsuario'));
 	}
+
+	$scope.agregarTiquetera = function (tiquetera) {
+		if($scope.forms.formTiquetera.$valid){
+			console.log('agregando tiquetera');
+		}
+	}
+
+
 }])
 .controller('controllerPlanes', ['$scope','$state', function($scope,$state){
 }])

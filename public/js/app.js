@@ -63,7 +63,7 @@ angular.module('gymApp').config(function($stateProvider,$urlRouterProvider){
 		controller:'controllerSubs',
 		templateUrl:'/views/subscripciones/tiqueteras.html'
 	})
-	.state('dashBoard.subscripciones.tiquetera.nueva',{
+	.state('dashBoard.subscripciones.tiqueteras.nueva',{
 		url:'/nueva',
 		controller:'controllerTiqueteras',
 		templateUrl:'/views/subscripciones/nuevaTiquetera.html'
